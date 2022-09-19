@@ -13,7 +13,7 @@ final internal class CameraIconView: UIView {
     
     init() {
         super.init(frame: CGRect())
-        self.backgroundColor = .clear
+        self.backgroundColor = .white
         self.isOpaque = false
     }
     
@@ -22,7 +22,7 @@ final internal class CameraIconView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        let color = UIColor.gray
+        let color = #colorLiteral(red: 0.168627451, green: 0.5764705882, blue: 1, alpha: 1)
         
         //// Body Drawing
         let bodyPath = UIBezierPath()

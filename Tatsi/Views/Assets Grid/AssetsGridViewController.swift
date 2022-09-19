@@ -24,7 +24,6 @@ final internal class AssetsGridViewController: UICollectionViewController, Picke
             guard self.album != oldValue else {
                 return
             }
-            self.selectedAssets = []
             self.assets = []
             self.collectionView?.reloadData()
             
@@ -110,8 +109,8 @@ final internal class AssetsGridViewController: UICollectionViewController, Picke
     }()
     
     // MARK: - Initializers
-    
-    init(album: PHAssetCollection) {
+    init(album: PHAssetCollection, selectedAsset: [PHAsset]) {
+        self.selectedAssets =  selectedAsset.count == 0 ? self.selectedAssets: selectedAsset
         self.album = album
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }

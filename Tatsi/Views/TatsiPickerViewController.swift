@@ -12,7 +12,8 @@ import Photos
 final public class TatsiPickerViewController: UINavigationController {
     
     // MARK: - Public properties
-
+    private var saveAsset: [PHAsset]
+    
     public let config: TatsiConfig
     
     public weak var pickerDelegate: TatsiPickerViewControllerDelegate?
@@ -23,7 +24,8 @@ final public class TatsiPickerViewController: UINavigationController {
     
     // MARK: - Initializers
     
-    public init(config: TatsiConfig = TatsiConfig.default) {
+    public init(config: TatsiConfig = TatsiConfig.default, assets: [PHAsset]) {
+        self.saveAsset = assets
         self.config = config
         super.init(nibName: nil, bundle: nil)
 
@@ -54,7 +56,7 @@ final public class TatsiPickerViewController: UINavigationController {
                 break
             }
             if let initialAlbum = album ?? userLibrary, self.config.singleViewMode {
-                self.viewControllers = [AssetsGridViewController(album: initialAlbum)]
+                self.viewControllers = [AssetsGridViewController(album: initialAlbum, selectedAsset: saveAsset)]
             } else {
                 self.showAlbumViewController(with: album)
             }
@@ -69,7 +71,7 @@ final public class TatsiPickerViewController: UINavigationController {
     
     private func showAlbumViewController(with collection: PHAssetCollection?) {
         if let collection = collection {
-            self.viewControllers = [AlbumsViewController(), AssetsGridViewController(album: collection)]
+            self.viewControllers = [AlbumsViewController(), AssetsGridViewController(album: collection, selectedAsset: saveAsset)]
         } else {
             self.viewControllers = [AlbumsViewController()]
         }
